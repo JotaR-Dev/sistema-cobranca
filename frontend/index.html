@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Cobranças</title>
+    <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+    <!-- Tela de Login Omitida para Brevidade -->
+
+    <main class="dashboard" id="app">
+        <aside class="sidebar">
+            <div class="logo">Meu Sistema</div>
+            <nav>
+                <button class="nav-btn active" data-target="painel">Painel de Cobranças</button>
+                <button class="nav-btn" data-target="nova">Nova Cobrança</button>
+                <button class="nav-btn" data-target="config">Configurações</button>
+            </nav>
+            <button id="btnLogout" class="btn-outline">Sair</button>
+        </aside>
+
+        <section class="content">
+            <div id="appMessage" class="notice" role="status" aria-live="polite" hidden></div>
+            <header class="stats">
+                <div class="card">Total: <span id="countTotal">0</span></div>
+                <div class="card border-green">Em Dia: <span id="countEmDia">0</span></div>
+                <div class="card border-yellow">Notificados: <span id="countNotif">0</span></div>
+                <div class="card border-red">Em Atraso: <span id="countAtraso">0</span></div>
+            </header>
+
+            <!-- VIEW: PAINEL -->
+            <div id="view-painel" class="view active">
+                <div class="actions-bar">
+                    <input type="text" id="searchNome" placeholder="Buscar por nome...">
+                    <select id="filterStatus">
+                        <option value="todos">Todos os status</option>
+                        <option value="Pagamento em dia">Pagamento em dia</option>
+                        <option value="Notificado">Notificado</option>
+                        <option value="Em atraso">Em atraso</option>
+                    </select>
+                </div>
+                <div class="table-responsive">
+                    <table id="tabelaCobrancas">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Valor / Parcela</th>
+                                <th>Status</th>
+                                <th>Próxima Cobrança</th>
+                                <th>E-mail</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Preenchido via TS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- VIEW: NOVA COBRANÇA -->
+            <div id="view-nova" class="view">
+                <h2>Cadastrar Cobrança</h2>
+                <form id="formCobranca">
+                    <div class="form-group">
+                        <label>Nome completo *</label>
+                        <input type="text" id="nome" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Telefone *</label>
+                            <input type="text" id="telefone" placeholder="(00) 00000-0000" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email *</label>
+                            <input type="email" id="email" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Valor da Dívida (R$) *</label>
+                            <input type="number" id="valorDivida" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Tipo de Cobrança *</label>
+                            <select id="tipoCobranca" required>
+                                <option value="fixo">Valor Fixo</option>
+                                <option value="percentual">Porcentagem (%)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row" id="divValorInput">
+                        <!-- Alterna entre Valor R$ ou Porcentagem % -->
+                    </div>
+                    <p class="preview-valor">Valor a ser cobrado: R$ <span id="valorFinalDisplay">0,00</span></p>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Recorrência *</label>
+                            <select id="recorrencia">
+                                <option value="semanal">Semanal</option>
+                                <option value="quinzenal">Quinzenal</option>
+                                <option value="mensal">Mensal</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Data da Primeira Notificação *</label>
+                            <input type="date" id="dataInicio" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary">Salvar Cobrança</button>
+                </form>
+            </div>
+
+            <!-- VIEW: CONFIGURAÇÕES -->
+            <div id="view-config" class="view">
+                <h2>Configurações do Sistema</h2>
+                <div class="card">
+                    <form id="formConfig">
+                        <div class="form-group">
+                            <label>Sua Chave PIX</label>
+                            <input type="text" id="chavePix" placeholder="CPF, CNPJ, Email ou Celular">
+                        </div>
+                        <div class="form-group">
+                            <label>Mensagem Padrão no E-mail</label>
+                            <textarea id="mensagemPadrao" rows="4" style="padding: 12px; border: 1px solid var(--border); border-radius: 6px; width: 100%; resize: vertical;"></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">Salvar Configurações</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script type="module" src="./src/main.ts"></script>
+</body>
+</html>

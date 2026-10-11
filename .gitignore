@@ -1,0 +1,12 @@
+# Local environment and secrets
+**/.env
+**/.env.*
+!**/.env.example
+
+# Installed dependencies and generated files
+**/node_modules/
+**/dist/
+**/coverage/
+
+# Local operating-system files
+.DS_Store
